@@ -1,0 +1,20 @@
+<%= form_for @video, html: {role: "form", class: "col-md-6 offset-md-3"} do |form| %>
+  <% if @video.errors.any? %>
+      <%= errors_for @video %></li>  
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :titulo, required: true %>
+    <%= form.text_field :titulo, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :url, required: true %>
+    <%= form.text_field :url, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-buttons float-right">
+    <%= link_to 'Voltar', videos_path, class: "btn btn-danger" %>
+    <%= form.submit "Salvar", class: "btn btn-success" %>
+  </div>
+<% end %>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NetshowMe</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag  'application', media: 'all' %>
+    <%= stylesheet_link_tag  'home' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark "> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" 
+        aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav mr-auto">
+                    <li><a class="navbar-brand" href="<%= root_path %>">NetshowMe</a></li>
+                </ul>
+                <form class="form-inline my-2 my-md-0"> </form>
+            </div>
+        <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon"></span></a>
+        </nav>
+        <div id="wrapper" class="toggled">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class=" sidebar-brand"> <a href=""> <%= current_user.email %> </a> </li>
+                    <li><a href="<%= root_path %>">Início</a></li>
+                    <li> <a href="<%= new_video_path  %>">Novo Video</a> </li>
+                    <li> <a href="<%= videos_path  %>">Meus Videos</a> </li>
+                    <% if can? :manager, User %>
+                      <li><a class="sidebar-brand" href="#">Usuários</a></li>
+                      <li> <a href="<%= new_user_path  %>">Novo Usuários</a> </li>
+                      <li> <a href="<%= users_path  %>">Lista Usuários</a> </li>
+                    <% end %>
+                    <li> <%= link_to 'Sair', destroy_user_session_path,
+                     method: :delete, class: "text_center_al" %> </li>
+                </ul>
+            </div> <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                  <div class="col-md-10 offset-md-1">
+                    <%= render './layouts/message' %>
+                  </div>
+                  <div>
+                    <%= yield %>
+                  </div>
+                </div>
+            </div> <!-- /#page-content-wrapper -->
+        </div> <!-- /#wrapper -->
+        
+        <script>
+          $(function(){
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+
+            $(window).resize(function(e) {
+              if($(window).width()<=768){
+                $("#wrapper").removeClass("toggled");
+              }else{
+                $("#wrapper").addClass("toggled");
+              }
+            });
+          });
+        </script>
+</body>
+</html>

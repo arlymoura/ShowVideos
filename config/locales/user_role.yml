@@ -1,0 +1,5 @@
+en:
+  enumerations:
+    user_role:
+      default: "Default"
+      admin: "Admin"

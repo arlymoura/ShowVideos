@@ -1,0 +1,34 @@
+<h2 class="title">Lista de Users</h2>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr >
+        <th class="text_left_al">Email</th>
+        <th class="text_left_al">Tipo</th>
+        <th class="text_left_al">Videos</th>
+        <th colspan="2" class="text_center_al"> Ações </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= t(user.role) %></td>
+          <td><%= user.videos.count %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Deseja remover?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<div class="row col-md-3 offset-md-5">
+  <%= will_paginate @Users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+
+<%= link_to 'Novo User', new_user_path, class: "btn btn-success float-right" %>

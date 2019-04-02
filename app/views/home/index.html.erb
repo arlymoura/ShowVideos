@@ -1,0 +1,33 @@
+<h2 class="title">Todos Vídeos</h2>
+<div class="row">
+  <% if @videos.present? %>
+    <% @videos.each do |video| %>
+      <div class="col-md-4">
+        <a href="<%= video_path(video) %>">
+          <div class="card mb-4 box-shadow">
+            <video id="my_video_<%= video.id %>" class="video-js vjs-default-skin card-img-top" controls preload="auto" data-setup='{}'>
+              <source src=" <%= video.url %>" type="application/x-mpegURL">
+            </video>
+          </a>
+          <div class="card-body">
+            <p class="card-text title"><%= video.titulo %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <% if can? :crud, video %>
+                  <%= link_to 'Editar', edit_video_path(video), class: "btn btn-sm btn-warning" %>
+                  <%= link_to 'Apagar', video, method: :delete, data: { confirm: 'Deseja remover?' }, class: "btn btn-sm btn-danger" %>
+                <% end %>
+              </div>
+              <small class="text-muted"><%= video.views %> Visitas</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <h2>Nehum Video Cadastrado</h2> 
+  <% end %>
+</div>
+<div class="row col-md-3 offset-md-5">
+  <%= will_paginate @videos, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>

@@ -1,0 +1,33 @@
+<h2 class="title"><%= @video.titulo.capitalize %><h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-12 box-shadow">
+      <video id="my_video_1" width=960 height=440 class="video-js vjs-default-skin card-img-top"
+             controls preload="auto" data-setup='{}'>
+        <source src="<%= @video.url %>" type="application/x-mpegURL">
+      </video>
+      <div class="card-body">
+        <p class="card-text"><%#= @video.titulo.capitalize %></p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+          </div>
+          <small class="text-muted"><%= @video.views %> Visitas</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group float-right">
+    <%= link_to 'Voltar', videos_path, class: "btn btn-danger" %>
+    <% if can? :crud, @video %>
+      <%= link_to 'Editar', edit_video_path(@video), class: "btn btn-warning" %>
+    <% end %>
+  </div>
+  </div>
+ </div>
+
+<script>
+  var player = videojs('my_video_1');
+  player.play();
+  var arr = "<%= @video.update_views %>"
+</script>
+
+
